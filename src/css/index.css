@@ -1,11 +1,20 @@
 :root {
+  /* Colors */
+  --primary-color: #e50914;
+  --primary-dark: #f40612;
+  --bg-dark: #1a1a1a;
+  --bg-body: #242424;
+  --text-light: rgba(255, 255, 255, 0.87);
+  --text-dim: #999;
+  --border-color: #646cff;
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--text-light);
+  background-color: var(--bg-body);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -60,13 +69,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--bg-dark);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, background-color 0.25s;
 }
 
 button:hover {
-  border-color: #646cff;
+  border-color: var(--border-color);
 }
 
 button:focus,

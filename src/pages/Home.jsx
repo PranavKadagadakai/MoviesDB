@@ -21,15 +21,12 @@ function Home() {
         setLoading(false);
       }
     };
-
     loadPopularMovies();
   }, []);
 
   const handleSearch = async (event) => {
     event.preventDefault();
     if (!searchQuery.trim()) return;
-    if (loading) return;
-
     setLoading(true);
     try {
       const searchResults = await searchMovies(searchQuery);
@@ -43,6 +40,34 @@ function Home() {
     }
   };
 
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <div className="movies-grid-loading">
+          {[...Array(8)].map((_, index) => (
+            <div key={index} className="loading-skeleton"></div>
+          ))}
+        </div>
+      );
+    }
+
+    if (error) {
+      return <div className="error-message">{error}</div>;
+    }
+
+    if (movies.length === 0) {
+      return <div className="no-results">No movies found. Please try a different search.</div>;
+    }
+
+    return (
+      <div className="movies-grid">
+        {movies.map((movie) => (
+          <MovieCard movie={movie} key={movie.id} />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="home">
@@ -54,22 +79,11 @@ function Home() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button type="submit" className="search-button">
+          <button type="submit" className="search-button" aria-label="Search movies">
             Search
           </button>
         </form>
-
-        {error && <div className="error-message">{error}</div>}
-
-        {loading ? (
-          <div className="loading">Loading...</div>
-        ) : (
-          <div className="movies-grid">
-            {movies.map((movie) => (
-              <MovieCard movie={movie} key={movie.id} />
-            ))}
-          </div>
-        )}
+        {renderContent()}
       </div>
     </>
   );
