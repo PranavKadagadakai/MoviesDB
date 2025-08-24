@@ -1,0 +1,2 @@
+// Example test setup for React components
+import "@testing-library/jest-dom";
